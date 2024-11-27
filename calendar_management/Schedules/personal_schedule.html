@@ -1,0 +1,330 @@
+<style>
+    .card-s {
+        width: 20%;
+        height: auto;
+        background: #ffff;
+        box-shadow: 0px 1px 6px 1px rgb(0 0 0 / 30%);
+        padding: 20px;
+        max-height: 100px;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .body-content {
+        display: flex;
+        padding-left: 5px;
+        height: 100%;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .header-box .card-s {
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .header-box .card-s:hover {
+        transform: scale(1.05);
+    }
+
+    .dislay-flex {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .dislay-flex-box2 {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .header-box .card-s {
+        width: 32.6%;
+    }
+
+    .body-content-horizontal {
+        display: flex;
+        padding-left: 5px;
+        height: 30px;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        background: white;
+        width: 315px;
+        border: 2px solid;
+    }
+
+    .body-content-horizontal h1.number {
+        font-size: 25px;
+    }
+
+    .body-content-horizontal h1.text {
+        font-size: 18px;
+    }
+
+    .box2 .card-s {
+        width: 30%;
+        background: #ffff;
+        box-shadow: 0px 1px 6px 1px rgb(0 0 0 / 30%);
+        padding: 20px;
+        height: 80px;
+        min-height: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card-l {
+        width: 65%;
+        background: #ffff;
+        box-shadow: 0px 1px 6px 1px rgb(0 0 0 / 30%);
+        padding: 20px;
+        height: 80px;
+        min-height: 0;
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+
+    .card-l h1 {
+        font-size: 20px;
+    }
+
+    .dropdown {
+        width: 300px;
+        position: relative;
+    }
+
+    .dropdown:hover h1 {
+        border-radius: 5px 5px 0 0;
+    }
+
+    .dropdown:hover li {
+        padding: 10px;
+        border-bottom: 1px solid rgb(0 0 0 / 98%);
+        border-left: 1px solid rgb(0 0 0 / 98%);
+        border-right: 1px solid rgb(0 0 0 / 98%);
+        height: auto;
+        overflow: auto;
+        opacity: 1;
+    }
+
+    .dropdown h1 {
+        display: inline-block;
+        padding: 10px;
+        position: relative;
+        background: #ffffff;
+        color: #000000;
+        font-weight: normal;
+        text-align: left;
+        border-radius: 5px;
+        width: 100%;
+        cursor: pointer;
+        transition: all 0.5s linear;
+        font-size: 18px;
+        border: 1px solid;
+    }
+
+    .dropdown h1 b {
+        color: #000000;
+        font-weight: normal;
+    }
+
+    .dropdown ul {
+        display: block;
+        position: absolute;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        width: 300px;
+    }
+
+    .dropdown li {
+        padding: 0 10px;
+        background: #ffffff;
+        color: #434343;
+        text-align: left;
+        border: none;
+        width: 100%;
+        height: 0;
+        overflow: hidden;
+        cursor: pointer;
+        opacity: 0;
+        transition: all 0.2s, background-color 0.4s;
+    }
+
+    .dropdown li b {
+        color: #000000;
+        font-weight: normal;
+    }
+
+    .dropdown li:hover,
+    .dropdown li.selected {
+        background-color: #ffe3e3;
+        /* darken(#333, 4%) */
+    }
+</style>
+<div class="top-2rem dislay-flex header-box">
+    <div class="card-s dislay-flex" style="color: black; background-image: url('./assets/img/group.png'); background-position: center; background-size: contain;">
+        <div class="body-content">
+            <h1 class="number" id="total-count">0</h1>
+            <h1 class="text">Jobs of the week</h1>
+        </div>
+    </div>
+    <div class="card-s margin-left-1 dislay-flex" style="color: black; background-image: url('./assets/img/non-work.png'); background-position: center; background-size: contain;">
+        <div class="body-content">
+            <h1 class="number" id="unfinished-count">0</h1>
+            <h1 class="text">Unfinished work</h1>
+        </div>
+    </div>
+    <div class="card-s margin-left-1 dislay-flex" style="color: black;background-image: url('./assets/img/c-work.png'); background-position: center; background-size: contain;">
+        <div class="body-content">
+            <h1 class="number" id="completed-count">0</h1>
+            <h1 class="text">Work completed</h1>
+        </div>
+    </div>
+    
+    <!-- <div class="card-s margin-left-1 dislay-flex" style="color: black;background-image: url('./assets/img/H-work.png');     background-position: center;
+    background-size: contain;">
+        <div class="body-content">
+            <h1 class="number">28</h1>
+            <h1 class="text">High priority</h1>
+        </div>
+    </div>
+    <div class="card-s margin-left-1 dislay-flex" style="color: black;background-image: url('./assets/img/M-work.png');     background-position: center;
+    background-size: contain;">
+        <div class="body-content">
+            <h1 class="number">28</h1>
+            <h1 class="text">Medium Priority</h1>
+        </div>
+    </div>
+    <div class="card-s margin-left-1 dislay-flex" style="color: black;background-image: url('./assets/img/L-work.png');     background-position: center;
+    background-size: contain;">
+        <div class="body-content">
+            <h1 class="number">28</h1>
+            <h1 class="text">Low Priority</h1>
+        </div>
+    </div> -->
+</div>
+<!-- <div class="top-2rem dislay-flex-box2 box2">
+    <div class="card-s" style="color: black;background-image: url('./assets/img/W-work.png');     background-position: center;
+    background-size: contain;">
+        <div class="body-content-horizontal">
+            <h1 class="text">Number of jobs per week:</h1>
+            <h1 class="number">28</h1>
+        </div>
+    </div>
+    <div class="card-l">
+        <h1>
+            The currently displayed calendar type is:</h1>
+        <div class="dropdown">
+            <h1>Display: entire calendar</h1>
+            <ul>
+                <li class="selected"><b> Display:</b> entire calendar</li>
+                <li><b> Display:</b> your calendar</li>
+                <li><b> Display:</b> XXX group's schedule</li>
+            </ul>
+        </div>
+    </div>
+</div> -->
+<div class="calendar-container">
+    <div style="display: flex;
+    flex-direction: row;
+    align-items: center;">
+        <div class="calendar-title">weekly schedule</div>
+        <header class="calendar-header">
+            <button id="prev-week" class="btn-primary">
+                <i class="fas fa-chevron-left"></i> Last week
+            </button>
+            <div class="calendar-buttons">
+                <button id="create-single-event" class="btn-secondary">
+                    Create One Schedules</button>
+                <button id="create-multiple-events" class="btn-secondary">Create Series Schedules</button>
+            </div>
+            <button id="next-week" class="btn-primary">
+                Next week <i class="fas fa-chevron-right"></i>
+            </button>
+        </header>
+    </div>
+    <table class="calendar-table">
+        <thead>
+            <tr>
+                <th>
+                    <div class="calendar-day-label">Mon</div>
+                    <div class="calendar-date-label" id="date-0"></div>
+                </th>
+                <th>
+                    <div class="calendar-day-label">Tue</div>
+                    <div class="calendar-date-label" id="date-1"></div>
+                </th>
+                <th>
+                    <div class="calendar-day-label">Wed</div>
+                    <div class="calendar-date-label" id="date-2"></div>
+                </th>
+                <th>
+                    <div class="calendar-day-label">Thu</div>
+                    <div class="calendar-date-label" id="date-3"></div>
+                </th>
+                <th>
+                    <div class="calendar-day-label">Fri</div>
+                    <div class="calendar-date-label" id="date-4"></div>
+                </th>
+                <th>
+                    <div class="calendar-day-label">Sat</div>
+                    <div class="calendar-date-label" id="date-5"></div>
+                </th>
+                <th>
+                    <div class="calendar-day-label">Sun</div>
+                    <div class="calendar-date-label" id="date-6"></div>
+                </th>
+            </tr>
+        </thead>
+        <tbody id="week-days"></tbody>
+    </table>
+</div>
+
+<div id="event-modal" class="event-modal">
+    <div class="event-modal-content">
+        <span id="close-btn" class="event-close">&times;</span>
+        <h3 id="modal-title">Create a calendar</h3>
+        <div class="modal-inputs">
+            <input type="text" id="event-title" placeholder="Event title" required>
+            <input type="time" id="event-time-from" placeholder="Start time" required>
+            <input type="time" id="event-time-to" placeholder="End time" required>
+            <input type="date" id="event-start-date" placeholder="Start date">
+            <input type="date" id="event-end-date" placeholder="End date">
+            <input type="text" id="event-location" placeholder="Location">
+            <input type="text" id="event-organization" placeholder="Content">
+        </div>
+        <button id="add-event-btn" class="btn-primary">Tạo lịch</button>
+    </div>
+</div>
+<div id="event-detail-modal" class="event-modal">
+    <div class="event-modal-content">
+        <span id="detail-close-btn" class="event-close">&times;</span>
+        <h3>Event details</h3>
+        <div id="event-detail-content">
+            <p><strong>Title:</strong> <span id="event-detail-title"></span></p>
+            <p><strong>Time:</strong> <span id="event-detail-time"></span></p>
+            <p><strong>Location:</strong> <span id="event-detail-location"></span></p>
+            <p><strong>Content:</strong> <span id="event-detail-organization"></span></p>
+        </div>
+        <div class="modal-buttons">
+
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+  $('.dropdown ul li').click(function() {
+    $('.dropdown ul li').each(function() {
+      if ($(this).hasClass('selected')) {
+        $(this).removeClass('selected');
+      }
+    });
+    $(this).addClass('selected');
+    $('.dropdown h1').html($(this).html()).removeClass().addClass('selected-' + ($(this).index()+1));
+  });
+});
+</script>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.1.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./assets/css/styles.css" />
+  <title>schedules</title>
+</head>
+
+<body>
+  <nav>
+    <div class="nav__header">
+      <div class="nav__logo">
+        <a href="#">MS</a>
+      </div>
+      <div class="nav__menu__btn" id="menu-btn">
+        <i class="ri-menu-line"></i>
+      </div>
+    </div>
+    <ul class="nav__links" id="nav-links">
+      <li><a href="#">ABOUT US</a></li>
+      <li><a href="#">CONTACT</a></li>
+    </ul>
+  </nav>
+  <div class="container">
+    <div class="container__left">
+      <h1>Manage your schedules</h1>
+      <div class="container__btn">
+        <button class="btn" style="text-transform: uppercase;">Get started now</button>
+      </div>
+    </div>
+    <div class="container__right">
+      <div class="images">
+        <img src="./assets/img/tent-1.jpg" alt="tent-1" class="tent-1" />
+        <img src="./assets/img/tent-2.jpg" alt="tent-2" class="tent-2" />
+      </div>
+      <div class="content">
+        <h4>Relaxation schedule</h4>
+        <h2>
+          Schedule your life</h2>
+        <h3>Experience perseverance through challenges</h3>
+        <p>
+          Planning not only helps you organize your life but also builds your ability to persevere through challenges. By scheduling each event, you are taking steps to control your time and work towards your goals. Remember, every challenge is an opportunity for you to grow.
+        </p>
+      </div>
+    </div>
+    <div class="socials">
+      <span>
+        <a href="#"><i class="ri-facebook-fill"></i></a>
+      </span>
+      <span>
+        <a href="#"><i class="ri-instagram-line"></i></a>
+      </span>
+      <span>
+        <a href="#"><i class="ri-twitter-fill"></i></a>
+      </span>
+    </div>
+  </div>
+  <script src="https://unpkg.com/scrollreveal"></script>
+  <script src="./assets/js/main.js"></script>
+  <div class="modal js-modal">
+    <div class="modal-container js-modal-container">
+      <div class="forms">
+        <div class="modal-close js-modal-close">
+          <i class="modal-icon-close fa-solid fa-xmark"></i>
+        </div>
+  
+        <div class="form login">
+          <span class="title">Login</span>
+          <form action="#">
+            <div class="input-field">
+              <label for="login-name"><i class="ri-user-fill"></i> Username</label>
+              <input id="login-name" type="text" placeholder="Enter your name" required />
+            </div>
+            <div class="input-field">
+              <label for="login-password"><i class="ri-lock-fill"></i> Password</label>
+              <input id="login-password" type="password" class="password" placeholder="Enter your password" required />
+              <i class="ri-eye-off-line showHidePw"></i>
+            </div>
+            <div class="input-field button">
+              <button type="submit">Login</button>
+            </div>
+          </form>
+          <div class="login-signup">
+            <span class="text">Not a member? <a href="#" class="text signup-link">Signup Now</a></span>
+          </div>
+        </div>
+        
+        <!-- Signup Form -->
+        <div class="form signup">
+          <span class="title">Registration</span>
+          <form action="#">
+            <div class="input-field">
+              <label for="signup-name"><i class="ri-user-fill"></i> Username</label>
+              <input id="signup-name" type="text" placeholder="Enter your name" required />
+            </div>
+            <div class="input-field">
+              <label for="signup-email"><i class="ri-mail-fill"></i> Email</label>
+              <input id="signup-email" type="email" placeholder="Enter your email" required />
+            </div>
+            <div class="input-field">
+              <label for="signup-password"><i class="ri-lock-fill"></i> Create a password</label>
+              <input id="signup-password" type="password" class="password" placeholder="Create a password" required />
+            </div>
+            <div class="input-field">
+              <label for="signup-confirm-password"><i class="ri-lock-fill"></i> Confirm password</label>
+              <input id="signup-confirm-password" type="password" class="password" placeholder="Confirm your password" required />
+              <i class="ri-eye-off-line showHidePw"></i>
+            </div>
+            <div class="input-field button">
+              <button type="submit">Signup</button>
+            </div>
+          </form>
+          <div class="login-signup">
+            <span class="text">Already a member? <a href="#" class="text login-link">Login Now</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    const pwShowHide = document.querySelectorAll(".showHidePw")
+    const pwFields = document.querySelectorAll(".password")
+    const signUp = document.querySelector(".signup-link")
+    const login = document.querySelector(".login-link")
+    const buyBtns = document.querySelectorAll('.btn')
+    const modal = document.querySelector('.js-modal')
+    const modalclose = document.querySelector('.js-modal-close')
+    const modalcontainer = document.querySelector('.js-modal-container')
+    // js code to show/hide password and change icon
+    pwShowHide.forEach((eyeIcon) => {
+      eyeIcon.addEventListener("click", () => {
+        pwFields.forEach((pwField) => {
+          if (pwField.type === "password") {
+            pwField.type = "text";
+            pwShowHide.forEach((icon) => {
+              icon.classList.replace("uil-eye-slash", "uil-eye");
+            });
+          } else {
+            pwField.type = "password";
+            pwShowHide.forEach((icon) => {
+              icon.classList.replace("uil-eye", "uil-eye-slash");
+            });
+          }
+        });
+      });
+    });
+    // js code to appear signup and login form
+    signUp.addEventListener("click", (e) => {
+      e.preventDefault();
+      modalcontainer.classList.add("active");
+    });
+    login.addEventListener("click", (e) => {
+      e.preventDefault();
+      modalcontainer.classList.remove("active");
+    });
+
+
+
+    function showBuyTikets() {
+      modal.classList.add('open')
+    }
+    function closeBuyTikets() {
+      modal.classList.remove('open')
+    }
+
+    for (const buyBtn of buyBtns) {
+      buyBtn.addEventListener('click', showBuyTikets)
+    }
+    modalclose.addEventListener('click', closeBuyTikets)
+    modal.addEventListener('click', closeBuyTikets)
+    modalcontainer.addEventListener('click', function (even) {
+      even.stopPropagation()
+    })
+    document.querySelector('.form.login form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const username = e.target.querySelector('input[placeholder="Enter your name"]').value;
+  const password = e.target.querySelector('input[placeholder="Enter your password"]').value;
+
+  try {
+    const response = await fetch('http://localhost:8080/api/user/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ username, password }),
+    });
+
+    const result = await response.json();
+
+    if (response.ok && result.status === '1') {
+      alert('Successful login!');
+      // Đánh dấu người dùng đã đăng nhập và lưu userId
+      localStorage.setItem('loggedInUser', JSON.stringify({ username, userId: result.userId }));
+      // Chuyển hướng sang trang home
+      window.location.href = 'http://127.0.0.1:5500/Schedules/home.html';
+    } else {
+      console.error('Đăng nhập thất bại:', result);
+      alert(`Lỗi đăng nhập: ${response.status} - ${result.message}`);
+    }
+  } catch (error) {
+    console.error('Lỗi:', error);
+    alert(`Đã có lỗi xảy ra: ${error.message}`);
+  }
+});
+
+document.querySelector('.form.signup form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  // Lấy các giá trị từ form đăng ký
+  const username = e.target.querySelector('input[placeholder="Enter your name"]').value;
+  const email = e.target.querySelector('input[placeholder="Enter your email"]').value;
+  const password = e.target.querySelector('input[placeholder="Create a password"]').value;
+  const confirmPassword = e.target.querySelector('input[placeholder="Confirm your password"]').value;
+
+  // Kiểm tra định dạng email
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+    alert('Email is not in correct format');
+    return;
+  }
+
+  // Kiểm tra mật khẩu và xác nhận mật khẩu
+  if (password !== confirmPassword) {
+    alert('The re-entered password does not match');
+    return;
+  }
+
+  // Tạo đối tượng dữ liệu để gửi tới API
+  const data = {
+    username,
+    email,
+    password,
+    confirmPassword
+  };
+
+  // Thực hiện yêu cầu API đăng ký
+  try {
+    const response = await fetch('http://localhost:8080/api/user/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),  // Gửi dữ liệu JSON
+    });
+
+    // Kiểm tra phản hồi từ server
+    const result = await response.json();
+
+    if (response.ok && result.status === '1') {
+      alert('Registered successfully!');
+      // Đóng modal đăng ký
+      modalcontainer.classList.remove('active');
+      
+      // Xóa nội dung của form đăng ký
+      document.querySelector('.form.signup form').reset();  // Xóa dữ liệu trong form đăng ký
+
+      // Chuyển sang form đăng nhập
+      document.querySelector('.form.login').classList.add('active');
+      document.querySelector('.form.signup').classList.remove('active');
+    } else {
+      console.error('Registration failed:', result);
+      alert(`Registration error: ${response.status} - ${result.message}`);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert(`An error occurred: ${error.message}`);
+  }
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Hiển thị form login mặc định khi trang tải lên
+  document.querySelector('.form.login').classList.add('active');
+  document.querySelector('.form.signup').classList.add('inactive');
+  
+  // Chuyển form đăng nhập sang ẩn khi nhấn vào "Signup Now"
+  document.querySelector('.signup-link').addEventListener('click', (e) => {
+    e.preventDefault();
+    document.querySelector('.form.login').classList.remove('active');
+    document.querySelector('.form.login').classList.add('inactive');
+    document.querySelector('.form.signup').classList.remove('inactive');
+    document.querySelector('.form.signup').classList.add('active');
+  });
+
+  // Chuyển form đăng ký sang ẩn khi nhấn vào "Login Now"
+  document.querySelector('.login-link').addEventListener('click', (e) => {
+    e.preventDefault();
+    document.querySelector('.form.signup').classList.remove('active');
+    document.querySelector('.form.signup').classList.add('inactive');
+    document.querySelector('.form.login').classList.remove('inactive');
+    document.querySelector('.form.login').classList.add('active');
+  });
+});
+
+const menuBtn = document.getElementById("menu-btn");
+const navLinks = document.getElementById("nav-links");
+const menuBtnIcon = menuBtn.querySelector("i");
+
+menuBtn.addEventListener("click", (e) => {
+  navLinks.classList.toggle("open");
+
+  const isOpen = navLinks.classList.contains("open");
+  menuBtnIcon.setAttribute("class", isOpen ? "ri-close-line" : "ri-menu-line");
+});
+
+navLinks.addEventListener("click", (e) => {
+  navLinks.classList.remove("open");
+  menuBtnIcon.setAttribute("class", "ri-menu-line");
+});
+
+const scrollRevealOption = {
+  distance: "50px",
+  origin: "bottom",
+  duration: 1000,
+};
+
+ScrollReveal().reveal(".container__left h1", {
+  ...scrollRevealOption,
+});
+ScrollReveal().reveal(".container__left .container__btn", {
+  ...scrollRevealOption,
+  delay: 500,
+});
+
+ScrollReveal().reveal(".container__right h4", {
+  ...scrollRevealOption,
+  delay: 2000,
+});
+ScrollReveal().reveal(".container__right h2", {
+  ...scrollRevealOption,
+  delay: 2500,
+});
+ScrollReveal().reveal(".container__right h3", {
+  ...scrollRevealOption,
+  delay: 3000,
+});
+ScrollReveal().reveal(".container__right p", {
+  ...scrollRevealOption,
+  delay: 3500,
+});
+
+ScrollReveal().reveal(".container__right .tent-1", {
+  duration: 1000,
+  delay: 4000,
+});
+ScrollReveal().reveal(".container__right .tent-2", {
+  duration: 1000,
+  delay: 4500,
+});
+
+ScrollReveal().reveal(".location", {
+  ...scrollRevealOption,
+  origin: "left",
+  delay: 5000,
+});
+
+ScrollReveal().reveal(".socials span", {
+  ...scrollRevealOption,
+  origin: "top",
+  delay: 5500,
+  interval: 500,
+});
+  </script>
+</body>
+
+</html>

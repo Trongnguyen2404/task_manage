@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Home - User Management</title>
+  <link rel="stylesheet" href="./css/styles.css">
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+  <style>
+    /* Thêm một số style cơ bản */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 10px;
+      text-align: center;
+    }
+    .btn {
+      padding: 5px 10px;
+      margin: 5px;
+      cursor: pointer;
+    }
+    .edit-btn {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .delete-btn {
+      background-color: #f44336;
+      color: white;
+    }
+
+    /* Style cho modal */
+    .user-modal-wrapper {
+      display: none; /* Ẩn modal mặc định */
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      justify-content: center;
+      align-items: center;
+    }
+    .user-modal {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 300px;
+      position: relative;
+    }
+    .user-modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .user-modal-header h3 {
+      margin: 0;
+    }
+    .user-modal-close {
+      cursor: pointer;
+      font-size: 19px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: red;
+      border: none;
+      padding: 5px;
+    }
+    .user-input-field {
+      margin-bottom: 10px;
+    }
+    .user-input-field label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    .user-input-field input {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0;
+    }
+    .user-modal-actions {
+      display: flex;
+      justify-content: space-between;
+    }
+    .user-btn {
+      padding: 8px 16px;
+      cursor: pointer;
+    }
+    .user-btn-primary {
+      background-color: #4CAF50;
+      color: white;
+      width: 100%;
+    }
+
+    /* Nút đăng xuất */
+    .logout-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      padding: 8px 16px;
+      background-color: #f44336;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome Admin</h1>
+
+  <!-- Nút Đăng xuất -->
+  <button class="logout-btn" onclick="logout()">Đăng xuất</button>
+
+  <h2>Danh sách người dùng</h2>
+  
+  <table id="userTable">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Dữ liệu người dùng sẽ được điền vào đây -->
+    </tbody>
+  </table>
+
+  <!-- Modal chỉnh sửa người dùng -->
+  <div class="user-modal-wrapper" id="user-modal-wrapper">
+    <div class="user-modal" id="user-modal">
+      <div class="user-modal-header">
+        <h3>Update Information</h3>
+        <button class="user-modal-close" id="close-modal">&times;</button>
+      </div>
+      <form id="update-user-form">
+        <div class="user-input-field">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" required />
+        </div>
+        <div class="user-input-field">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="user-input-field">
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" />
+        </div>
+        <div class="user-modal-actions">
+          <button type="submit" class="user-btn user-btn-primary">Update</button>
+          <button type="button" class="user-btn user-btn-secondary" id="cancel-modal" style="display: none;"></button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Lấy thông tin người dùng từ localStorage
+    const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    if (!loggedInUser) {
+      window.location.href = 'login.html';  // Nếu không có người dùng đăng nhập, chuyển hướng về trang login
+    }
+
+    // Nút đăng xuất
+    function logout() {
+      localStorage.removeItem('loggedInUser'); // Xóa thông tin người dùng khỏi localStorage
+      window.location.href = 'index.html'; // Chuyển hướng về trang index hoặc trang login
+    }
+
+    // Lấy danh sách người dùng từ API
+    async function fetchUsers() {
+      try {
+        const response = await fetch('http://localhost:8080/api/user/all');
+        const result = await response.json();
+
+        if (result.status === "1") {
+          displayUsers(result.users); // Hiển thị người dùng nếu API trả về thành công
+        } else {
+          alert(result.message);  // Hiển thị thông báo lỗi nếu có
+        }
+      } catch (error) {
+        console.error('Error fetching users:', error);
+        alert('Có lỗi xảy ra khi lấy danh sách người dùng.');
+      }
+    }
+
+    // Hàm hiển thị danh sách người dùng
+    function displayUsers(users) {
+      const tableBody = document.querySelector('#userTable tbody');
+      tableBody.innerHTML = '';  // Làm sạch bảng trước khi điền dữ liệu mới
+
+      users.forEach(user => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${user.id}</td>
+          <td>${user.username}</td>
+          <td>${user.email}</td>
+          <td>
+            <button class="btn edit-btn" onclick="editUser(${user.id})">Sửa</button>
+            <button class="btn delete-btn" onclick="deleteUser(${user.id})">Xóa</button>
+          </td>
+        `;
+        tableBody.appendChild(row);
+      });
+    }
+
+    // Hàm sửa người dùng (sẽ mở modal)
+    function editUser(userId) {
+      // Gọi API để lấy thông tin người dùng
+      fetch(`http://localhost:8080/api/user/${userId}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === "1") {
+            const user = data.user;
+            // Điền thông tin người dùng vào form modal
+            document.getElementById('username').value = user.username;
+            document.getElementById('email').value = user.email;
+            document.getElementById('password').value = ''; // Để trống password khi edit
+
+            // Lưu ID người dùng vào modal để sử dụng khi cập nhật
+            document.getElementById('update-user-form').dataset.userId = user.id;
+
+            // Mở modal
+            openModal();
+          } else {
+            alert(data.message);
+          }
+        });
+    }
+
+    // Hàm xóa người dùng
+    async function deleteUser(userId) {
+      if (confirm("Bạn có chắc chắn muốn xóa người dùng này?")) {
+        try {
+          const response = await fetch(`http://localhost:8080/api/user/${userId}`, {
+            method: 'DELETE',
+          });
+          const result = await response.json();
+
+          if (result.status === "1") {
+            alert('Xóa người dùng thành công!');
+            fetchUsers(); // Cập nhật lại danh sách người dùng sau khi xóa
+          } else {
+            alert(result.message);
+          }
+        } catch (error) {
+          console.error('Error deleting user:', error);
+          alert('Có lỗi xảy ra khi xóa người dùng.');
+        }
+      }
+    }
+
+    // Hàm cập nhật thông tin người dùng
+    document.getElementById('update-user-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      const userId = this.dataset.userId;
+      const username = document.getElementById('username').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      const user = {
+        username,
+        email,
+        password
+      };
+
+      // Gửi yêu cầu cập nhật thông tin người dùng
+      fetch(`http://localhost:8080/api/user/${userId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user),
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.status === "1") {
+            alert('Cập nhật thông tin người dùng thành công!');
+            closeModal();
+            fetchUsers(); // Làm mới danh sách người dùng
+          } else {
+            alert(data.message);
+          }
+        })
+        .catch(error => {
+          console.error('Error updating user:', error);
+          alert('Có lỗi xảy ra khi cập nhật thông tin người dùng.');
+        });
+    });
+
+    // Đóng modal khi nhấn ngoài form
+    document.getElementById('user-modal-wrapper').addEventListener('click', function(event) {
+      if (event.target === document.getElementById('user-modal-wrapper')) {
+        closeModal();
+      }
+    });
+
+    // Đóng modal khi nhấn vào nút đóng hoặc cancel
+    document.getElementById('close-modal').addEventListener('click', closeModal);
+    document.getElementById('cancel-modal').addEventListener('click', closeModal);
+
+    // Mở modal
+    function openModal() {
+      document.getElementById('user-modal-wrapper').style.display = 'flex';
+    }
+
+    // Đóng modal
+    function closeModal() {
+      document.getElementById('user-modal-wrapper').style.display = 'none';
+    }
+
+    // Gọi hàm fetchUsers khi trang tải
+    fetchUsers();
+  </script>
+</body>
+</html>

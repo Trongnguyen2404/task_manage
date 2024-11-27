@@ -1,0 +1,111 @@
+<div class="dashboard-container top-2rem dislay-flex">
+    <div class="right-content ">
+        <div class="top-3rem">
+            <div class="card-xl name-tag">
+                <h1 style="text-transform: uppercase;">dashboard</h1>
+            </div>
+        </div>
+        <div class="top-2rem dislay-flex">
+            <div class="card-s dislay-flex" style="color: black; ">
+                <div class="left-icon ">
+                    <i class="fa-solid fa-layer-group" style="color: #044faa; font-size: 70px;"></i>
+                </div>
+                <div class="body-content">
+                    <h1 class="number" id="number-total">0</h1>
+                    <h1 class="text">Total work</h1>
+                </div>
+            </div>
+            <div class="card-s margin-left-1 dislay-flex" style="color: black;">
+                <div class="left-icon ">
+                    <i class="fa-regular fa-circle-xmark" style="color: #af2c2c; font-size: 70px;"></i>
+                </div>
+                <div class="body-content">
+                    <h1 class="number " id="number-unfinished">28</h1>
+                    <h1 class="text">Unfinished work</h1>
+                </div>
+            </div>
+            <div class="card-s margin-left-1 dislay-flex" style="color: black;">
+                <div class="left-icon">
+                    <i class="fa-regular fa-circle-check" style="color: #099067; font-size: 70px;"></i>
+                </div>
+                <div class="body-content">
+                    <h1 class="number "id="number-completed">28</h1>
+                    <h1 class="text">Work completed</h1>
+                </div>
+            </div>
+        </div>
+        <div class="center top-2rem">
+            <div class="card-xl">
+                <h1 class="chart-title">Number of jobs per week</h1> <!-- Tiêu đề bên trong .card-xl -->
+                <div class="chart-container">
+                    <div class="left-chart">
+                        <div class="chart chart-1"></div>
+
+                    </div>
+                    <div class="right-chart">
+                        <div class="chart chart-2"></div>
+
+                    </div>
+                    <div class="left-chart">
+                        <div class="chart chart-3"></div>
+
+                    </div>
+                    <div class="right-chart">
+                        <div class="chart chart-4"></div>
+
+                    </div>
+                    <div class="left-chart">
+                        <div class="chart chart-5"></div>
+
+                    </div>
+                    <div class="right-chart">
+                        <div class="chart chart-6"></div>
+
+                    </div>
+                    <div class="left-chart">
+                        <div class="chart chart-7"></div>
+
+                    </div>
+                </div>
+                <div class="tag-day">
+                    <div>Monday</div>
+                    <div>Tuesday </div>
+                    <div>Wednesday</div>
+                    <div>Thursday</div>
+                    <div>Friday</div>
+                    <div>Saturday</div>
+                    <div>Sunday</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="left-content">
+        <div class="top-3rem ">
+            <div class="card-xl with-90" style="height: 674px; margin-left: 40px;">
+                <div class=" name-tag">
+                    <h1>Notification</h1>
+                    <button id="addNotificationBtn" style="padding: 8px 12px; font-size: 10px;">Add Notification</button>
+                </div>
+                <div class="notification">
+                    <div class="body-content" style="color: black; margin: 0; padding: 0;">
+                        <div class="accordion">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="notificationForm" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); z-index: 10;">
+        <h2>Add New Notification</h2>
+        <label for="notificationTitle">Title:</label>
+        <input type="text" id="notificationTitle" style="width: 100%; padding: 8px; margin-bottom: 10px;">
+        <label for="notificationContent">Content:</label>
+        <textarea id="notificationContent" style="width: 100%; padding: 8px; margin-bottom: 10px;" rows="4"></textarea>
+        <div style="text-align: right;">
+            <button id="cancelBtn" style="padding: 8px 12px; margin-right: 10px;">Cancel</button>
+            <button id="saveBtn" style="padding: 8px 12px;">Save</button>
+        </div>
+    </div>
+</div>

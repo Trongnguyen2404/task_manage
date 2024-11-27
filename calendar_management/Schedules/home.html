@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- ICONS -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="../assets/fontawesome-free-6.2.1-web/css/all.css">
+    <!-- STYLESHEET -->
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+
+    <title>Sidebar</title>
+</head>
+<script>
+
+</script>
+<body>
+    <div class="container">
+        <div class="left-main">
+            <div class="sidebar">
+                <div class="menu-btn">
+                    <i class="ph-bold ph-caret-left"></i>
+                </div>
+                <div class="head">
+                    <div class="user-details">
+                        <p class="name">John Doe</p>
+                    </div>
+                </div>
+                <div class="nav">
+                    <div class="menu">
+                        <p class="title">Main</p>
+                        <ul>
+                            <li class="active">
+                                <a href="#" data-page="./dashboard.html">
+                                    <i class="icon fa-solid fa-house"></i>
+                                    <span class="text">Dashboard</span>
+                                </a>
+                            </li>
+                            <li style="
+                                min-height: 44px;
+                            ">
+                                <a href="#" data-page="./personal_schedule.html">
+                                    <i class="icon ph-bold ph-calendar-blank" style="
+                                    font-size: 23px;
+                                "></i>
+                                    <span class="text" >Schedules</span>
+                                    <!-- <i class="arrow ph-bold ph-caret-down"></i> -->
+                                </a>
+                                <!-- <ul class="sub-menu">
+                                    <li>
+                                        <a href="#" >
+                                            <span class="text">Personal Schedule</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" data-page="./dashboard.html">
+                                            <span class="text">Team Schedule</span>
+                                        </a>
+                                    </li>
+                                </ul> -->
+                            </li>
+                            <!-- <li>
+                                <a href="#">
+                                    <i class="icon fa-solid fa-user-group"></i>
+                                    <span class="text">Group</span>
+                                <i class="arrow ph-bold ph-caret-down"></i>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="#" data-page="./gr.html">
+                                        <span class="text">Your group</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" data-page="./gr-list.html">
+                                        <span class="text">Group is engaged</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            </li> -->
+                        </ul>
+                    </div>
+                </div>
+                <div class="menu">
+                    <p class="title">Account</p>
+                    <ul>
+                        <li class="Logout">
+                            <a href="#">
+                                <i class="icon ph-bold ph-sign-out"></i>
+                                <span class="text">Logout</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="user-modal-wrapper">
+            <div class="user-modal" id="user-modal">
+              <div class="user-modal-container">
+                <div class="user-modal-header">
+                  <h3>Update information</h3>
+                  <button class="user-modal-close" id="close-modal">&times;</button>
+                </div>
+                <form id="update-user-form">
+                  <div class="user-input-field">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" />
+                  </div>
+                  <div class="user-input-field">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" />
+                  </div>
+                  <div class="user-input-field">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" />
+                  </div>
+                  <div class="user-modal-actions">
+                    <button type="submit" class="user-btn user-btn-primary">Update</button>
+                    <button type="button" class="user-btn user-btn-secondary" id="cancel-modal" style="display: none;"></button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          
+        <div class="credits">
+            <div class="leftcolumn" id="content-container">
+                <!-- Nội dung sẽ được tải vào đây -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Jquery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.js"
+    integrity="sha512-8Z5++K1rB3U+USaLKG6oO8uWWBhdYsM3hmdirnOEWp8h2B1aOikj5zBzlXs8QOrvY9OxEnD2QDkbSKKpfqcIWw=="
+    crossorigin="anonymous"></script>
+<script>
+$(document).ready(function () {
+    // Hàm xóa các thẻ script với src đã chỉ định
+    function removeScript(src) {
+        $(`script[src="${src}"]`).remove();
+    }
+
+    // Hàm thêm script vào head
+    function addScript(src) {
+        const script = document.createElement('script');
+        script.src = src;
+        script.async = false;
+        document.head.appendChild(script);
+    }
+
+    // Hàm load nội dung vào #content-container
+    function loadPageContent(targetPage) {
+        $("#content-container").load(targetPage, function () {
+            if (targetPage === './dashboard.html') {
+                // Xóa các thẻ script cũ trước khi thêm mới
+                removeScript('./assets/js/chart.js');
+                removeScript('./assets/js/notification.js');
+
+                // Thêm các thẻ script mới
+                addScript('./assets/js/chart.js');
+                addScript('./assets/js/notification.js');
+
+            }
+            if (targetPage === './personal_schedule.html') {
+                // Xóa các thẻ script cũ trước khi thêm mới
+                removeScript('./assets/js/chart.js');
+                removeScript('./assets/js/notification.js');
+                removeScript('./assets/js/schedule.js');
+
+                // Thêm các thẻ script mới
+                addScript('./assets/js/schedule.js');
+            }
+        });
+    }
+
+    // Kiểm tra tham số "page" trong URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const pageParam = urlParams.get('page');
+    let targetPage = '';
+
+    // Nếu URL có tham số "page", xác định targetPage
+    if (pageParam) {
+        switch (pageParam) {
+            case '1':
+                targetPage = './dashboard.html';
+                break;
+            case '2':
+                targetPage = './personal_schedule.html';
+                break;
+            // case '3':
+            //     targetPage = './gr.html';
+            //     break;
+            // case '4':
+            //     targetPage = './gr-list.html';
+            //     break;
+            default:
+                targetPage = './dashboard.html';  // Mặc định là Dashboard nếu không có tham số hợp lệ
+        }
+    } else {
+        // Nếu không có tham số "page", mặc định là ./dashboard.html
+        const initialActive = $(".menu ul li.active");
+        targetPage = initialActive.find("a").data("page") || './dashboard.html';
+    }
+
+    // Gọi hàm loadPageContent với targetPage
+    loadPageContent(targetPage);
+
+    // Xử lý sự kiện click cho các mục menu
+    $(".menu ul li").click(function (e) {
+        e.preventDefault(); // Ngăn chặn hành động mặc định khi nhấp vào liên kết
+
+        // Kiểm tra nếu mục menu có thuộc tính data-page
+        const page = $(this).find("a").data("page");
+
+        if (page) {
+            // Nếu có data-page, tải nội dung trang tương ứng
+            loadPageContent(page);
+
+            // Cập nhật URL mà không tải lại trang
+            if (page === './dashboard.html') {
+                history.pushState(null, "", "http://127.0.0.1:5500/Schedules/home.html?page=1");
+            } else if (page === './personal_schedule.html') {
+                history.pushState(null, "", "http://127.0.0.1:5500/Schedules/home.html?page=2");
+            }
+            // else if (page === './gr.html') {
+            //     history.pushState(null, "", "http://127.0.0.1:5500/Schedules/home.html?page=3");
+            // }
+            // else if (page === './gr-list.html') {
+            //     history.pushState(null, "", "http://127.0.0.1:5500/Schedules/home.html?page=4");
+            // }
+
+            // Chuyển đổi trạng thái active cho các mục menu
+            $(this).siblings().removeClass("active");
+            $(this).toggleClass("active");
+            $(this).find("ul").slideToggle();
+            $(this).siblings().find("ul").slideUp();
+            $(this).siblings().find("ul").find("li").removeClass("active");
+        } else {
+            // Nếu không có data-page (như mục "Schedules"), chỉ hiển thị/ẩn sub-menu
+            $(this).siblings().removeClass("active");
+            $(this).toggleClass("active");
+            $(this).find("ul").slideToggle();
+            $(this).siblings().find("ul").slideUp();
+            $(this).siblings().find("ul").find("li").removeClass("active");
+        }
+    });
+
+    // Sự kiện khi nhấn vào nút toggle menu
+    $(".menu-btn").click(function () {
+        $(".sidebar").toggleClass("active");
+        $(".left-main").toggleClass("active");
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Lấy thông tin người dùng từ localStorage
+
+  const loggedInUser = localStorage.getItem('loggedInUser');
+  if (loggedInUser) {
+    const user = JSON.parse(loggedInUser);
+    // Hiển thị tên người dùng
+    document.querySelector('.name').textContent = user.username;
+
+    // Hiển thị thông tin người dùng khi click vào tên
+    document.querySelector('.name').addEventListener('click', () => {
+      fetchUserInfo(user.userId);  // Gọi API để lấy thông tin người dùng
+    });
+  } else {
+    // Nếu không có người dùng đăng nhập, chuyển hướng về trang chủ
+    window.location.href = 'http://127.0.0.1:5500/index.html';
+  }
+
+  // Xử lý cập nhật thông tin người dùng khi gửi form
+  document.querySelector('#update-user-form').addEventListener('submit', (e) => {
+    e.preventDefault(); // Ngừng hành động mặc định của form
+
+    const updatedUser = {
+      id: user.userId,
+      username: document.querySelector('#username').value,
+      email: document.querySelector('#email').value,
+      password: document.querySelector('#password').value,
+    };
+
+    updateUserInfo(updatedUser);  // Gọi API để cập nhật thông tin người dùng
+  });
+});
+
+// Gọi API để lấy thông tin người dùng
+function fetchUserInfo(id) {
+  fetch(`http://localhost:8080/api/user/${id}`)
+    .then(response => response.json())
+    .then(data => {
+      if (data.status === "1") {
+        const user = data.user;
+        document.querySelector('#username').value = user.username;
+        document.querySelector('#email').value = user.email;
+        document.querySelector('#password').value = ''; // Giữ mật khẩu trống, không hiển thị mật khẩu
+
+        document.querySelector('#user-form').style.display = 'block';  // Hiển thị form để chỉnh sửa
+      } else {
+        alert('Không tìm thấy người dùng');
+      }
+    })
+    .catch(error => console.error('Error fetching user info:', error));
+}
+
+// Gọi API để cập nhật thông tin người dùng
+function updateUserInfo(userDetails) {
+  fetch(`http://localhost:8080/api/user/${userDetails.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(userDetails),
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.status === "1") {
+        alert('Cập nhật thông tin thành công!');
+        localStorage.setItem('loggedInUser', JSON.stringify(userDetails)); // Cập nhật thông tin trong localStorage
+      } else {
+        alert('Không thể cập nhật thông tin');
+      }
+    })
+    .catch(error => console.error('Error updating user info:', error));
+}
+
+
+// Logout handler
+document.querySelector('.Logout').addEventListener('click', () => {
+  localStorage.removeItem('loggedInUser');
+  alert('Đăng xuất thành công!');
+  window.location.href = 'http://127.0.0.1:5500/index.html';
+});
+// Mở modal
+function openModal() {
+  document.querySelector('.user-modal-wrapper').classList.add('show');
+}
+
+// Đóng modal
+function closeModal() {
+  document.querySelector('.user-modal-wrapper').classList.remove('show');
+}
+
+// Gắn sự kiện cho nút mở modal (nhấn vào tên người dùng)
+document.querySelector('.name').addEventListener('click', () => {
+  openModal();
+});
+
+// Gắn sự kiện cho nút đóng modal
+document.getElementById('close-modal').addEventListener('click', closeModal);
+document.getElementById('cancel-modal').addEventListener('click', closeModal);
+
+// Ngăn modal bị đóng khi click bên trong container
+document.querySelector('.user-modal-container').addEventListener('click', (e) => {
+  e.stopPropagation();
+});
+
+// Đóng modal khi click ra ngoài vùng modal
+document.querySelector('.user-modal-wrapper').addEventListener('click', closeModal);
+
+</script>
+
+</body>
+</html>
